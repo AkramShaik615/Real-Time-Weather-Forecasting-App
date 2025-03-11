@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+      body {
+    overflow: hidden;
+    background-color: #554091;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+}
+
+.container {
+    position: relative;
+    z-index: 10;
+    margin-top: 50px;
+}
+.icon {
+            width: 100px;
+        }
+.cloud1 {
+    position: absolute;
+    top: 0%;
+    left: 0%; /* Adjust the position for the left cloud */
+    transform: translateY(-50%); /* Center vertically */
+    width: auto;
+    height: auto;
+    max-width: 100vw;
+    max-height: 100vh;
+    z-index: 1;
+    
+    /* Animation */
+    animation: moveClouds 10s linear infinite alternate;
+}
+@keyframes moveClouds {
+    from {
+        left: 10%;
+    }
+    to {
+        left: 45%;
+    }
+}
+.cloud2 {
+    position: absolute;
+    top: 0%;
+    left: 40%; /* Center cloud */
+    transform: translate(-50%, -50%);
+    width: auto;
+    height: auto;
+    max-width: 100vw;
+    max-height: 100vh;
+    z-index: 1;
+}
+
+.cloud3 {
+    position: absolute;
+    top: 0%;
+    right: 10%; /* Adjust the position for the right cloud */
+    transform: translateY(-50%); /* Center vertically */
+    width: auto;
+    height: auto;
+    max-width: 100vw;
+    max-height: 100vh;
+    z-index: 1;
+}
+
+
+
+#weather-info {
+    transition: opacity 0.5s ease-in-out;
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+    </style>
+
+</head>
+<body>
+   <div class='cloud1'>
+  <div class="cloud1__face"><span></span><span></span></div>
+  <div class="cloud1__clouds1">
+    <span></span>
+  </div>
+  <div class="cloud1__clouds2">
+    <span></span><span></span><span></span><span></span>
+  </div>
+  <div class="cloud1__clouds3">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="cloud1__clouds4">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="cloud1__clouds5">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="cloud1__rain">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="cloud1__lightning">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+
+<div class='cloud2'>
+  <div class="cloud1__face"><span></span><span></span></div>
+  <div class="cloud2__clouds1">
+    <span></span>
+  </div>
+  <div class="cloud2__clouds2">
+    <span></span><span></span><span></span><span></span>
+  </div>
+  <div class="cloud2__clouds3">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="cloud2__clouds4">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="cloud2__clouds5">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="cloud2__rain">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="cloud2__lightning">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+
+<div class='cloud3'>
+  <div class="cloud1__face"><span></span><span></span></div>
+  <div class="cloud3__clouds1">
+    <span></span>
+  </div>
+  <div class="cloud3__clouds2">
+    <span></span><span></span><span></span><span></span>
+  </div>
+  <div class="cloud3__clouds3">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="cloud3__clouds4">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="cloud3__clouds5">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="cloud3__rain">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="cloud3__lightning">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+ 
+    <div class="container">
+        <h1>WEATHER APP</h1>
+        <div class="d-flex justify-content-center gap-3 mt-4">
+            <button class="btn btn-secondary" onclick="getLocationWeather()">Your Weather</button>
+            <input type="text" id="city" placeholder="Search Weather" class="form-control w-25">
+            <button class="btn btn-primary" onclick="searchWeather()">Search</button>
+        </div>
+        <div id="weather-info" class="mt-5">
+            <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Location Icon" class="icon">
+            <h2>Grant Location Access</h2>
+            <p>Allow Access to get weather Information</p>
+            <button class="btn btn-primary" onclick="getLocationWeather()">GRANT ACCESS</button>
+        </div>
+
+    </div>
+
+    <script>
+        const API_KEY = "YOUR_OPENWEATHERMAP_API_KEY";
+
+        function getLocationWeather() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    const { latitude, longitude } = position.coords;
+                    fetchWeather(`lat=${latitude}&lon=${longitude}`);
+                });
+            }
+        }
+
+        function searchWeather() {
+            const city = document.getElementById("city").value;
+            if (city) {
+                fetchWeather(`q=${city}`);
+            }
+        }
+
+        function fetchWeather(query) {
+            fetch(`https://api.openweathermap.org/data/2.5/weather?${query}&appid=${API_KEY}&units=metric`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("weather-info").innerHTML = `
+                        <h2>${data.name}</h2>
+                        <p>${data.weather[0].description}</p>
+                        <h3>${data.main.temp}°C</h3>
+                    `;
+                })
+                .catch(() => alert("Weather data not found!"));
+        }
+        
+   document.getElementById("city").addEventListener("click", function () {
+    document.getElementById("weather-info").style.display = "none";
+});
+
+document.querySelector(".btn-secondary").addEventListener("click", function () {
+    document.getElementById("weather-info").style.display = "block";
+});
+
+        
+    </script>
+</body>
+</html>
